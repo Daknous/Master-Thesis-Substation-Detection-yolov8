@@ -1,0 +1,13 @@
+train: ../Dataset/train/images
+val: ../Dataset/valid/images
+test: ../Dataset/test/images
+
+nc: 7
+names: ['Construction Sites', 'Free Area', 'Poles', 'Portal', 'Switch Panel', 'Transformer', 'Umspannwerk']
+
+roboflow:
+  workspace: master-thesis-ryd2j
+  project: substation_detection_model
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/master-thesis-ryd2j/substation_detection_model/dataset/1

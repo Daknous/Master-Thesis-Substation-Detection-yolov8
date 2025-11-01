@@ -1,0 +1,41 @@
+# Python / env
+__pycache__/
+.venv/
+.env
+*.py[cod]
+.ipynb_checkpoints/
+
+# Outputs & artifacts
+preds/
+runs/
+wandb/
+logs/
+*.npy
+*.npz
+*.onnx
+*.pt
+*.pth
+*.ckpt
+reports/*.png
+reports/*.jpg
+
+# Large data and GIS (dataset stays outside git)
+data/
+datasets/
+Dataset/
+qgis/
+*.qgz
+*.qgs
+*.tif
+*.tiff
+*.tfw
+*.wld
+*.aux.xml
+*.geojson
+*.shp
+*.dbf
+*.prj
+*.cpg
+
+# OS cruft
+.DS_Store
