@@ -27,17 +27,19 @@ export WANDB_MODE="online"
 
 MODELS=("yolov8n.pt" "yolov8s.pt" "yolov8m.pt")
 SIZES=(1024 1024 1536)
+BATCHES=(16 8 4)  # Larger batch for smaller models
 
 IDX=${SLURM_ARRAY_TASK_ID}
 MODEL=${MODELS[$IDX]}
 SIZE=${SIZES[$IDX]}
+BATCH=${BATCHES[$IDX]}
 NAME="sweep_${IDX}_${MODEL%%.*}_${SIZE}"
 
 srun yolo detect train \
   model="$MODEL" \
   data="configs/roboflow_data.yaml" \
   project="reports" name="$NAME" exist_ok=True \
-  imgsz=$SIZE epochs=200 batch=auto seed=42 patience=25 \
+  imgsz=$SIZE epochs=200 batch=$BATCH seed=42 patience=25 \
   hsv_h=0.015 hsv_s=0.7 hsv_v=0.4 \
   translate=0.10 scale=0.50 fliplr=0.5 flipud=0.5 \
   mosaic=1.0 mixup=0.10 copy_paste=0.10

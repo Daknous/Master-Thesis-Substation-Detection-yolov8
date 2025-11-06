@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=yolo_base
-#SBATCH --output=/home/users/s/seifdak/Master-Thesis/logs/%x_%j.out
-#SBATCH --error=/home/users/s/seifdak/Master-Thesis/logs/%x_%j.err
+#SBATCH --output=/home/users/s/seifdak/Master-Thesis_Detection-score/Master-Thesis-Substation-Detection-yolov8/logs/%x_%j.out
+#SBATCH --error=/home/users/s/seifdak/Master-Thesis_Detection-score/Master-Thesis-Substation-Detection-yolov8/logs/%x_%j.err
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -16,12 +16,16 @@
 set -euo pipefail
 
 module load python/3.9.19
-source ~/scratch/yolo_detection_venv/bin/activate
+source ~/Master-Thesis/env_subseg/bin/activate
 
-cd ~/Master-Thesis/Detection_score
+cd ~/Master-Thesis_Detection-score/Master-Thesis-Substation-Detection-yolov8
+
+# Create logs directory
+mkdir -p logs
 
 # W&B configuration
+export WANDB_API_KEY=$(< ~/.wandb_api_key)
 export WANDB_PROJECT="substation-detection-yolo"
-export WANDB_MODE="online"  # use "offline" if no internet, then sync later with: wandb sync
+export WANDB_MODE="online"
 
-srun bash scripts/train_baseline.sh yolov8s.pt v8s_1024_baseline
+srun bash scripts/train_baseline.sh yolov8s.pt v8s_1024_baseline 8
